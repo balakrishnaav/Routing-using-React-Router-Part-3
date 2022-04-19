@@ -6,7 +6,7 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import './index.css'
 
 class BlogItemDetails extends Component {
-  state = {blogData: {},isLoading:true}
+  state = {blogData: {}, isLoading: true}
 
   componentDidMount() {
     this.getBlogItemData()
@@ -25,12 +25,12 @@ class BlogItemDetails extends Component {
       avatarUrl: data.avatar_url,
       author: data.author,
     }
-    this.setState({blogData: updatedData,isLoading:false})
+    this.setState({blogData: updatedData, isLoading: false})
     console.log(updatedData)
   }
 
   renderBlogItemDetails = () => {
-    const {blogData,} = this.state
+    const {blogData} = this.state
     const {title, imageUrl, content, avatarUrl, author} = blogData
     return (
       <div className="blog-info">
@@ -47,12 +47,19 @@ class BlogItemDetails extends Component {
     )
   }
 
-  render()
-   {
-       const {isLoading}=this.state
-       console.log(isLoading)
-    return {isLoading ? <Loader type="TailSpin" color="#00BFFF" height={50} width={50} /> : <div className="blog-container">{this.renderBlogItemDetails()}</div> 
-    }
+  render() {
+    const {isLoading} = this.state
+    console.log(isLoading)
+    return (
+      <div className="blog-container">
+        {isLoading ? (
+          <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />
+        ) : (
+          this.renderBlogItemDetails()
+        )}
+      </div>
+    )
+  }
 }
 
 export default BlogItemDetails
